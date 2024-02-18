@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { HeaderContainer, Logo, SearchBar, AuthIcon } from "./HeaderStyles";
+import { setSearchQuery } from "../../store/action";
 
 const Header = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const searchQuery = useSelector((state) => state.searchQuery);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+    dispatch(setSearchQuery(event.target.value));
   };
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-
-    // перенаправить на страницу поиска
     navigate(`/search/${searchQuery}`);
-    // попробовать использовать хук юзХистори
-    // переделать
   };
 
   return (
