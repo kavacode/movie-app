@@ -29,6 +29,7 @@ import {
 	const dispatch = useDispatch();
  
 	useEffect(() => {
+		console.log("isSearchActive:", isSearchActive); //проверочка
 	  const fetchData = async () => {
 		 try {
 			if (isSearchActive) {
@@ -50,6 +51,10 @@ import {
  
 	  fetchData();
 	}, [searchQuery, isSearchActive, dispatch]);
+
+	useEffect(() => {
+		console.log("Search results:", movies);  //еще одна проверка
+	 }, [movies]);
  
 	useEffect(() => {
 	  const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
