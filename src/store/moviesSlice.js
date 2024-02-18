@@ -1,4 +1,3 @@
-// moviesSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 export const moviesSlice = createSlice({
