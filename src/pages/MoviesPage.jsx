@@ -17,7 +17,7 @@ import {
  import {
 	searchMovies,
 	fetchedSearchMovies,
-	resetState as resetSearchState, // был конфликт имен
+	resetState as resetSearchState, // был конфликт
  } from "../store/searchSlice";
  
  const MoviesPage = () => {
@@ -29,28 +29,20 @@ import {
 	const dispatch = useDispatch();
  
 	useEffect(() => {
-		console.log("isSearchActive:", isSearchActive); //проверочка
-	  const fetchData = async () => {
-		 try {
-			if (isSearchActive) {
-			  dispatch(searchMovies());
-			  const response = await axios.get(
-				 `http://www.omdbapi.com/?apikey=71cd41bc&s=${searchQuery}`
-			  );
-			  dispatch(fetchedSearchMovies(response.data));
-			} else {
-			  const response = await axios.get(
-				 `http://www.omdbapi.com/?apikey=71cd41bc&s=movie`
-			  );
-			  dispatch(setMovies(response.data.Search || []));
-			}
-		 } catch (error) {
-			console.error(error);
-		 }
-	  };
- 
-	  fetchData();
-	}, [searchQuery, isSearchActive, dispatch]);
+		const fetchData = async () => {
+		  try {
+			 const response = await axios.get(
+				`https://www.omdbapi.com/?apikey=71cd41bc&s=${
+				  searchQuery ? searchQuery : "movie"
+				}`,
+			 );
+			 dispatch(setMovies(response.data.Search));
+		  } catch (error) {
+			 console.error(error);
+		  }
+		};
+		fetchData();
+	 }, [searchQuery, dispatch]);
 
 	useEffect(() => {
 		console.log("Search results:", movies);  //еще одна проверка

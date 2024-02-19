@@ -18,7 +18,7 @@ const SearchPage = () => {
       try {
         const apiKey = "71cd41bc";
         const response = await fetch(
-          `http://www.omdbapi.com/?s=${searchQuery}&apikey=${apiKey}`
+          `https://www.omdbapi.com/?s=${searchQuery}&apikey=${apiKey}`
         );
         const data = await response.json();
 
