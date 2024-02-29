@@ -13,7 +13,7 @@ const MovieDetailsPage = () => {
     const fetchMovieDetails = async () => {
       try {
         const response = await fetch(
-          `http://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`
+          `https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`
         );
         const data = await response.json();
 
@@ -21,7 +21,7 @@ const MovieDetailsPage = () => {
           setMovieDetails(data);
 
           const extendedResponse = await fetch(
-            `http://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}&plot=full`
+            `https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}&plot=full`
           );
           const extendedData = await extendedResponse.json();
 

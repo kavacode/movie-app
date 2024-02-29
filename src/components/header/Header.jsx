@@ -1,35 +1,30 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// Header.jsx
+
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { HeaderContainer, Logo, SearchBar, AuthIcon } from "./HeaderStyles";
+import { setSearchQuery, setIsSearchActive } from "../../store/moviesSlice";
 
 const Header = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
+  const searchQuery = useSelector((state) => state.movies.searchQuery);
+  const dispatch = useDispatch();
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-
-    // перенаправить на страницу поиска
-    navigate(`/search/${searchQuery}`);
-    // попробовать использовать хук юзХистори
-    // переделать
+    const query = event.target.value;
+    console.log("searchQuery:", query);
+    dispatch(setSearchQuery(query));
+    dispatch(setIsSearchActive(query.trim() !== ""));
   };
 
   return (
     <HeaderContainer>
       <Logo>Movie-app</Logo>
-      <form onSubmit={handleSearchSubmit}>
-        <SearchBar
-          type="text"
-          placeholder="Enter movie title"
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
-      </form>
+      <SearchBar
+        type="text"
+        placeholder="Enter movie title"
+        value={searchQuery}
+        onChange={handleSearchChange}
+      />
       <AuthIcon>👤</AuthIcon>
     </HeaderContainer>
   );
